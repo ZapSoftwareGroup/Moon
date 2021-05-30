@@ -1,0 +1,89 @@
+* ~moon~ Package Manager
+A hackable, source based package manager written in Rust and Python. Based on Gentoo Portage.
+
+This is not the package repository. You can find those, [[https://github.com/dumrich/moonRepository][here]].
+
+** Todo
+- Allow looking up software from local repo
+- Allow installing software from local repo and keep track of dependencies
+- Allow multiple ~.moon~ files in software folder for multiple versions
+- Allowing updating by syncing newest repo and getting latest ~.moon~ file
+- Allow deleting software by deleting all generated binaries
+- Copy stable versions from Portage devs
+- Add useflags to ~moons~
+
+** Intended Audience
+~moon~ was made for Linux from Scratch. After completing a base installation, you can install ~moon~ to have a functional Linux system.
+
+** Usage
+Some common use cases for ~moon~
+
+*** Package Installation
+You can install packages using the ~--ask~ flag:
+
+#+begin_src shell
+$ sudo moon --ask firefox
+#+end_src
+
+Install a specific version of a package:
+
+#+begin_src shell
+$ sudo moon --ask (firefox)==1.0.0
+#+end_src
+
+*** Package Removal
+
+Remove a package:
+
+#+begin_src shell
+$ sudo moon --ask -d firefox
+#+end_src
+
+Remove a package and source code:
+
+#+begin_src shell
+$ sudo moon --ask -ds firefox
+#+end_src
+
+Remove a package and its dependencies:
+
+#+begin_src shell
+$ sudo moon --ask -d --deep firefox
+#+end_src
+
+*** Package updating
+
+Install the latest version of a package:
+
+#+begin_src shell
+$ sudo moon --ask firefox
+#+end_src
+
+Update the entire system:
+
+#+begin_src shell
+$ sudo moon --ask --system 
+#+end_src
+
+Update system with dependencies:
+
+#+begin_src shell
+$ sudo moon --ask --system --deep
+#+end_src
+
+*** Repository handling
+
+Sync newest repository:
+
+#+begin_src shell
+$ sudo moon --ask --sync {repo_name}
+#+end_src
+
+Add new repository
+
+#+begin_src shell
+$ sudo moon --ask --add {git_repo_name} {repo_name}
+#+end_src
+
+** Licensing
+~moon~ is licensed under GNU/GPLv3. Created by Abhinav Chavali
