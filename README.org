@@ -13,7 +13,7 @@ This is not the package repository. You can find those, [[https://github.com/dum
 - Add useflags to ~moons~
 
 ** Intended Audience
-~moon~ was made for Linux from Scratch. After completing a base installation, you can install ~moon~ to have a functional Linux system.
+~moon~ was made for any distro. After completing a base installation, you can install ~moon~ to have a functional Linux system. ~moon~ can also coexist along 
 
 ** Usage
 Some common use cases for ~moon~
@@ -22,13 +22,13 @@ Some common use cases for ~moon~
 You can install packages using the ~--ask~ flag:
 
 #+begin_src shell
-$ sudo moon --ask firefox
+$ sudo moon --ask st
 #+end_src
 
 Install a specific version of a package:
 
 #+begin_src shell
-$ sudo moon --ask (firefox)==1.0.0
+$ sudo moon --ask -v=8-0-4 st
 #+end_src
 
 *** Package Removal
@@ -85,5 +85,13 @@ Add new repository
 $ sudo moon --ask --add {git_repo_name} {repo_name}
 #+end_src
 
+** Contributing
+First, create a directory in your home folder called, ".moon". This will be where the source code and the binaries will reside. Then, create a folder in this .moon directory called, "Repos". In this Repos folder, you can clone [[https://github.com/dumrich/moonRepository][this link]], for the default repository.
+
+You need Rustup, Python, Pipenv, and Maturin in order to use (for now). After cloning this main repo (any directory), run ~pipenv shell~ to spawn a virtal environment.
+
+Then, go into the ~moon/moon~ directory and run ~maturin develop~.
+
+Finally, you can test the program by going into ~/moon/moon-frontend~ and running ~python cli.py --ask --version=0-8-2 st~. If it returns the correct path to the file, then it is working properly.
 ** Licensing
 ~moon~ is licensed under GNU/GPLv3. Created by Abhinav Chavali

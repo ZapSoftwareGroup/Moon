@@ -2,11 +2,14 @@ use std::{fs::File, io::{Read}};
 use serde_json::{Result as SResult, Value};
 use std::fs::metadata;
 
-pub struct Software {
+pub struct Package {
     pub name: String,
+    pub version: String,
+    pub format: String,
     pub binaries: Vec<String>,
     pub url: String,
-    commands: Vec<String>
+    pub deps: Vec<String>,
+    pub steps: Vec<String>
 }
 
 pub fn find_version_from_index((prefix, path): (String, String), version: String) -> SResult<String> {
@@ -34,15 +37,17 @@ pub fn find_version_from_index((prefix, path): (String, String), version: String
     }
 }
 
-// impl Software {
+impl Package {
     
-//    pub fn from_file(path: &str) -> Software {
+   pub fn from_file(path: &str) -> Package {
 
         // Import file into a String
- //       let mut package = File::open(path).expect("File not found 404 error beep boop beep boop");
- //       let mut file_string = String::new();
- //       package.read_to_string(&mut file_string);
+        let mut package = File::open(path).expect("File not found 404 error beep boop beep boop");
+        let mut file_string = String::new();
+        package.read_to_string(&mut file_string);
 
+        // Import string into package
+      
 
- //   }
-//}
+   }
+}
