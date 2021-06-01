@@ -11,20 +11,16 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 use dirs;
 
+const MOON_PATH: PathBuf = match dirs::home_dir() {
+    Some(p) => p.display().to_string(),
+    None => String::new(),
+};
 
 // This function parses the arguments given by the user
 #[pyfunction]
 fn parse_args(bool_args: HashMap<String, bool>, string_args: HashMap<String, String>, package: String) -> PyResult<String> {
-    let mut moon_path = match dirs::home_dir() {
-        Some(n) => n.display().to_string(),
-        None => String::new()
-    
-    };
-
-    moon_path.push_str("/.moon/Repos/");
-
     let key = String::from("version");
-    let repos = read::find_repos(moon_path)?;
+    let repos = read::find_repos(MOON_PATH)?;
 
     let mut path: PathBuf = PathBuf::new();
 
