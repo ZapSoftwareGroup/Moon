@@ -93,5 +93,6 @@ You need Rustup, Python, Pipenv, and Maturin in order to use (for now). After cl
 Then, go into the ~moon/moon~ directory and run ~maturin develop~.
 
 Finally, you can test the program by going into ~/moon/moon-frontend~ and running ~python cli.py --ask --version=0-8-2 st~. If it returns the correct path to the file, then it is working properly.
+
 ** Licensing
 ~moon~ is licensed under GNU/GPLv3. Created by Abhinav Chavali
