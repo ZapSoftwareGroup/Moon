@@ -3,7 +3,7 @@ mod package;
 // mod utils;
 
 use moonread::read;
-use package::find_version_from_index;
+use package::{Package, find_version_from_index};
 
 use dirs;
 use pyo3::prelude::*;
@@ -13,10 +13,9 @@ use std::path::PathBuf;
 
 // This function parses the arguments given by the user
 #[pyfunction]
-fn parse_args(
-    bool_args: HashMap<String, bool>,
-    string_args: HashMap<String, String>,
+fn find_path(
     package: String,
+    version: String
 ) -> PyResult<String> {
     let mut moon_path = match dirs::home_dir() {
         Some(n) => n.display().to_string(),
@@ -25,7 +24,6 @@ fn parse_args(
 
     moon_path.push_str("/.moon/Repos/");
 
-    let key = String::from("version");
     let repos = read::find_repos(moon_path)?;
 
     let mut path: PathBuf = PathBuf::new();
@@ -34,23 +32,18 @@ fn parse_args(
         path = repo;
     }
     let (prefix, index) = read::find_file_in_dir(path, &package)?;
-    let s = find_version_from_index((prefix, index), string_args[&key].to_string());
+    let s = find_version_from_index((prefix, index), version);
     Ok(match s {
         Ok(v) => v,
-        Err(e) => String::from("404 file not found"),
+        Err(_) => String::from("404 file not found"),
     })
 }
 
 // moon module.
 #[pymodule]
 fn moon(py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(parse_args, m)?).unwrap();
+    m.add_function(wrap_pyfunction!(find_path, m)?).unwrap();
+    m.add_class::<Package>()?;
     Ok(())
 }
 
-fn hello(s: &str) {
-    println!("Hello");
-    for char in s.as_bytes() {
-        println!("{}", char);
-    }
-}

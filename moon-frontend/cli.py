@@ -1,5 +1,6 @@
 import argparse
 from add_repository import Repository
+from handler import handle_args
 import moon
 
 parser = argparse.ArgumentParser(
@@ -30,10 +31,11 @@ args = parser.parse_args()
 def main():
     if not args.version:
         args.version = "latest"
-    bool_args_dict = {"ask": args.ask, "remove": args.remove, "source": args.source,
-                 "deep": args.deep, "all": args.system, "sync": args.sync}
-    string_args_dict = {"version": args.version}
-    return moon.parse_args(bool_args_dict, string_args_dict, args.package)
+
+    args_dict = {"ask": args.ask, "remove": args.remove, "source": args.source,
+                 "deep": args.deep, "all": args.system, "sync": args.sync, "version": args.version, "package": args.package}
+
+    return handle_args(**args_dict)
 
 
 if __name__ == "__main__":

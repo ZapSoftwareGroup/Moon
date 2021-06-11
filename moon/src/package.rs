@@ -1,7 +1,19 @@
-use serde_json::{Result as SResult, Value};
-use std::fs::metadata;
-use std::io;
-use std::{fs::File, io::Read};
+use serde_json::{Value};
+use std::{fs::{File, metadata}, io::{self, Read}, path::PathBuf};
+use pyo3::prelude::*;
+
+#[pyclass]
+pub struct Package {
+    name: String,
+    source: String,
+    file: String,
+    path: String,
+    format: String,
+    version: String,
+    binaries: Vec<String>,
+    dependencies: Vec<String>,
+    steps: Vec<String>
+}
 
 pub fn find_version_from_index(
     (prefix, path): (String, String),
